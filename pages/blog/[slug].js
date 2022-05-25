@@ -2,7 +2,7 @@ import { Fragment } from "react"
 import Head from "next/head"
 import { PHASE_PRODUCTION_BUILD } from "next/constants"
 import { getDatabase, getPageById, getBlocks, getDatabasePageMap } from "../../lib/notion"
-// import cache from '../../lib/cache'
+import cache from '../../lib/cache'
 import renderBlock from "../../components/Block"
 
 const databaseId = process.env.NOTION_DATABASE_ID
@@ -38,9 +38,10 @@ export default function Post({ data }) {
 export const getStaticPaths = async () => {
   const slugToPageMap = await getDatabasePageMap(databaseId)
   console.log({ slugToPageMap })
-  // if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
-  //   await cache.set(slugToPageMap, 'database.db')
-  // }
+  if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
+    console.log('Caching database')
+    await cache.set(slugToPageMap, 'database.db')
+  }
   return {
     paths: Object.keys(slugToPageMap).map((slug) => ({
       params: {
@@ -54,17 +55,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const { slug } = context.params
   console.log('Slug: ', slug)
-  // return {
-  //   props: {
-  //     data: slug
-  //   }
-  // }
-  // let page = await cache.get(slug, 'database.db')
-  // if (!page) {
+  let page = await cache.getContentByKey(slug, 'database.db')
+  console.log({ page })
+  if (!page) {
     const slugToPageMap = await getDatabasePageMap(databaseId)
   //   console.log({ slugToPageMap })
-    const page = slugToPageMap[slug]
-  // }
+     page = slugToPageMap[slug]
+  }
   if (!page) {
     return {
       notFound: true
