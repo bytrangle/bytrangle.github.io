@@ -7,9 +7,8 @@ import renderBlock from "../../components/Block"
 
 const databaseId = process.env.NOTION_DATABASE_ID
 
-export default function Post({ data }) {
+export default function Post({ pageContent: blocks, pageProps }) {
   // return <p>Test page slug {data}</p>
-  const { pageContent: blocks, pageProps } = data
   if (!blocks || !pageProps) {
     return <div />
   }
@@ -37,9 +36,9 @@ export default function Post({ data }) {
 
 export const getStaticPaths = async () => {
   const slugToPageMap = await getDatabasePageMap(databaseId)
-  console.log({ slugToPageMap })
+  // console.log({ slugToPageMap })
   if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
-    console.log('Caching database')
+    // console.log('Caching database')
     await cache.set(slugToPageMap, 'database.db')
   }
   return {
@@ -54,9 +53,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const { slug } = context.params
-  console.log('Slug: ', slug)
+  // console.log('Building slug: ', slug)
   let page = await cache.getContentByKey(slug, 'database.db')
-  console.log({ page })
+  // console.log({ page })
   if (!page) {
     const slugToPageMap = await getDatabasePageMap(databaseId)
   //   console.log({ slugToPageMap })
@@ -67,17 +66,16 @@ export const getStaticProps = async (context) => {
       notFound: true
     }
   }
-  // console.log({ page })
   const pageId = page.id
   const pageProps = (( { properties, last_edited_time }) => ({ properties, last_edited_time}))(page)
   const pageContent = await getBlocks(pageId)
-
+  // console.log({ pageId })
+  // console.log(`Page has ${pageContent.length} blocks`)
+  // console.log('----------')
   return {
     props: {
-      data: {
-        pageProps,
-        pageContent,
-      }
+      pageProps,
+      pageContent,
     }
   }
 }
