@@ -76,6 +76,7 @@ export const getStaticProps = async (context) => {
     props: {
       pageProps,
       pageContent,
-    }
+    },
+    revalidate: 10
   }
 }
