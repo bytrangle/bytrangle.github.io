@@ -28,13 +28,9 @@ const BlogFeed = ({ posts }) => {
 }
 
 export const getStaticProps = async () => {
-  let slugToPageMap = await cache.getWholeFileContent('database.db')
-  if (!slugToPageMap) {
-    slugToPageMap = await getDatabasePageMap(databaseId)
-    console.log({ slugToPageMap })
-    if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
-      await cache.set(slugToPageMap, 'database.db')
-    }
+  const slugToPageMap = await getDatabasePageMap(databaseId)
+  if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
+    await cache.set(slugToPageMap, 'database.db')
   }
 
   const posts = Object.keys(slugToPageMap).map((slug) => {
