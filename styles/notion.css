@@ -8,3 +8,17 @@
   @apply p-0;
   @apply my-3;
 }
+
+.notion {
+  position: relative;
+}
+
+.notion-hash-link {
+  display: flex;
+  align-items: center;
+  @apply -ml-8 opacity-0 absolute;
+}
+
+.notion-h2:hover .notion-hash-link {
+  @apply opacity-100;
+}
