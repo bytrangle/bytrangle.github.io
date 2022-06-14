@@ -8,8 +8,8 @@ const Layout = ({ frontmatter, recordMap }) => {
     <Container
       fullWidth={false}
     >
-      <article>
-        <h1 className="font-bold text-3xl text-black dark:text-white">{title}</h1>
+      <article className="prose">
+        <h1 className="font-bold text-3xl text-black">{title}</h1>
         <div>
           <NotionRenderer
             recordMap={recordMap}
