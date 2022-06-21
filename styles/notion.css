@@ -22,3 +22,14 @@
 .notion-h2:hover .notion-hash-link {
   @apply opacity-100;
 }
+
+.notion-code {
+  @apply relative;
+}
+
+.notion-code-copy {
+  @apply absolute bottom-1 right-1 p-2 rounded;
+}
+.notion-code-copy:hover {
+  @apply cursor-pointer bg-slate-600;
+}
