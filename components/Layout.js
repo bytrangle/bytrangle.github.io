@@ -1,5 +1,10 @@
 import { NotionRenderer } from 'react-notion-x'
+import dynamic from 'next/dynamic'
 import Container from "./Container"
+
+const Code = dynamic(() =>
+  import('react-notion-x/build/third-party/code').then((m) => m.Code)
+)
 
 const Layout = ({ frontmatter, recordMap }) => {
   const title = frontmatter.properties.Name?.title[0]?.plain_text
@@ -13,6 +18,9 @@ const Layout = ({ frontmatter, recordMap }) => {
         <div>
           <NotionRenderer
             recordMap={recordMap}
+            components={{
+              Code
+            }}
           />
         </div>
       </article>
