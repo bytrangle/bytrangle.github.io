@@ -7,7 +7,7 @@ const Code = dynamic(() =>
 )
 
 const Layout = ({ frontmatter, recordMap }) => {
-  const title = frontmatter.properties.Name?.title[0]?.plain_text
+  const title = frontmatter?.properties.Name?.title[0]?.plain_text
   console.log({ title })
   return (
     <Container
