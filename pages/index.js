@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from "next/link"
 import Image from 'next/image'
 import { PHASE_PRODUCTION_BUILD} from 'next/constants'
-import { getDatabase, getDatabasePageMap } from "../lib/notion"
+import { getDatabase, mapSlugToPageProps } from "../lib/notion"
 import cache from "../lib/cache"
 import styles from '../styles/Home.module.css'
 
@@ -13,7 +13,7 @@ const BlogFeed = ({ posts }) => {
   // console.log(posts)
   return (
     <div className={styles.main}>
-      <h2>A Slow Developer&apos;s Handbook</h2>
+      <h2 className="text-3xl font-bold">A Slow Developer&apos;s Handbook</h2>
       <ol>
         {posts.map((post) => (
           <li key={post.id}>
@@ -28,7 +28,7 @@ const BlogFeed = ({ posts }) => {
 }
 
 export const getStaticProps = async () => {
-  const slugToPageMap = await getDatabasePageMap(databaseId)
+  const slugToPageMap = await mapSlugToPageProps(databaseId)
   if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
     await cache.set(slugToPageMap, 'database.db')
   }
