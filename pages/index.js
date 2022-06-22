@@ -12,17 +12,17 @@ const BlogFeed = ({ posts }) => {
   // return <p>Goal: reduce API calls to Notion</p>
   // console.log(posts)
   return (
-    <div className={styles.main}>
-      <h2 className="text-3xl font-bold">A Slow Developer&apos;s Handbook</h2>
-      <ol>
+    <div className={`${styles.main}`}>
+      <h2 className="mb-4 text-3xl sm:text-4xl tracking-tight font-extrabold text-slate-900 dark:text-slate-200">A Slow Developer&apos;s Handbook</h2>
+      <div>
         {posts.map((post) => (
-          <li key={post.id}>
+          <article key={post.id}>
             <Link href={`/blog/${post.slug}`}>
-              <a>{post.title}</a>
+              <a className="text-base font-semibold tracking-tight text-slate-900 dark:text-slate-200">{post.title}</a>
             </Link>
-          </li>
+          </article>
         ))}
-      </ol>
+      </div>
     </div>
   )
 }

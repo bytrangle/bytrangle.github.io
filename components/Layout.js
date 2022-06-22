@@ -13,9 +13,9 @@ const Layout = ({ frontmatter, recordMap }) => {
     <Container
       fullWidth={false}
     >
-      <article className="prose">
-        <h1 className="font-bold text-3xl text-black">{title}</h1>
-        <div>
+      <article className="prose dark:prose-dark">
+        <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200">{title}</h1>
+        <div className="prose prose-slate dark:prose-dark">
           <NotionRenderer
             recordMap={recordMap}
             components={{
