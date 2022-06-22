@@ -1,12 +1,15 @@
 /* Override styles set by Notion Render X */
 
 .notion,
-.notion-text,
 .notion-quote,
 .notion-h-title {
   @apply leading-8;
   @apply p-0;
   @apply my-3;
+}
+.notion-text {
+  @apply my-4;
+  @apply leading-relaxed;
 }
 
 .notion {
