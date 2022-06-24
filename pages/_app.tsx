@@ -1,6 +1,8 @@
 import '../styles/globals.css'
 import "../styles/notion.css"
 
+import * as React from 'react'
+
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
