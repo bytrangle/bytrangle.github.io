@@ -9,8 +9,6 @@ import styles from '../styles/Home.module.css'
 const databaseId = process.env.NOTION_DATABASE_ID
 
 const BlogFeed = ({ posts }) => {
-  // return <p>Goal: reduce API calls to Notion</p>
-  // console.log(posts)
   return (
     <div className={`${styles.main}`}>
       <h2 className="mb-4 text-3xl sm:text-4xl tracking-tight font-extrabold text-slate-900 dark:text-slate-200">A Slow Developer&apos;s Handbook</h2>
