@@ -1,9 +1,10 @@
+import * as React from 'react'
+import { AppProps } from 'next/app'
+
 import '../styles/globals.css'
 import "../styles/notion.css"
 
-import * as React from 'react'
-
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />
 }
 

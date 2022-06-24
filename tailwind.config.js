@@ -2,8 +2,8 @@
 module.exports = {
   darkMode: 'class',
   content: [
-    "./pages/**/*.{js, ts, jsx, tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -198,55 +198,6 @@ module.exports = {
           },
         },
       }),
-      // typography: (theme) => ({
-      //   DEFAULT: {
-      //     css: {
-      //     }
-      //   },
-      //   dark: {
-      //     css: {
-      //       color: theme('color.slate.400'),
-      //       'h2, h3, h4, thead th': {
-      //         color: theme('colors.slate.200'),
-      //       },
-      //       'h2 small, h3 small, h4 small': {
-      //         color: theme('colors.slate.400'),
-      //       },
-      //       kbd: {
-      //         background: theme('colors.slate.700'),
-      //         borderColor: theme('colors.slate.600'),
-      //         color: theme('colors.slate.200'),
-      //       },
-      //       code: {
-      //         color: theme('colors.slate.200'),
-      //       },
-      //       hr: {
-      //         borderColor: theme('colors.slate.200'),
-      //         opacity: '0.05',
-      //       },
-      //       pre: {
-      //         boxShadow: 'inset 0 0 0 1px rgb(255 255 255 / 0.1)',
-      //       },
-      //       a: {
-      //         color: theme('colors.white'),
-      //         borderBottomColor: theme('colors.sky.400'),
-      //       },
-      //       strong: {
-      //         color: theme('colors.slate.200'),
-      //       },
-      //       thead: {
-      //         color: theme('colors.slate.300'),
-      //         borderBottomColor: 'rgb(148 163 184 / 0.2)',
-      //       },
-      //       'tbody tr': {
-      //         borderBottomColor: 'rgb(148 163 184 / 0.1)',
-      //       },
-      //       blockQuote: {
-      //         color: theme('colors.white'),
-      //       },
-      //     }
-      //   }
-      // })
     },
   },
   variants: {
