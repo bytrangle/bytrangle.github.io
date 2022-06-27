@@ -10,9 +10,9 @@ export default async function getCanonicalPageMap() {
     (map, pageId: string) => {
       const props = block[pageId]
       if (props.value && props.value.type === 'page' && props.value.parent_table === 'collection') {
-        console.log('Page ID: ', pageId)
+        // console.log('Page ID: ', pageId)
         const canonicalId = getCanonicalPageId(pageId, database)
-        console.log(props.value)
+        // console.log(props.value)
         return {
           ...map,
           [canonicalId]: props.value
@@ -22,6 +22,6 @@ export default async function getCanonicalPageMap() {
     },
     {}
   )
-  console.log({ canonicalPageMap })
+  // console.log({ canonicalPageMap })
   return canonicalPageMap
 }
