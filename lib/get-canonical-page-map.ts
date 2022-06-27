@@ -2,7 +2,6 @@ import { getCanonicalPageId } from 'notion-utils'
 import notion  from './notion-api'
 
 const databaseId = 'cc368b47772a4a1aa36e1f52c507d20d'
-// const databaseId = process.env.NOTION_DATABASE_ID
 
 export default async function getCanonicalPageMap() {
   const database = await notion.getPage(databaseId)
@@ -13,7 +12,7 @@ export default async function getCanonicalPageMap() {
       if (props.value && props.value.type === 'page' && props.value.parent_table === 'collection') {
         console.log('Page ID: ', pageId)
         const canonicalId = getCanonicalPageId(pageId, database)
-        console.log(props)
+        console.log(props.value)
         return {
           ...map,
           [canonicalId]: props.value
@@ -24,13 +23,5 @@ export default async function getCanonicalPageMap() {
     {}
   )
   console.log({ canonicalPageMap })
-  // for (const [id, props] of Object.entries(block)) {
-  //   if (props.value && props.value.type === 'page' && props.value.parent_table === 'collection') {
-  //     console.log('Page id', id)
-  //     console.log('Title: ', props.value.properties)
-  //     const canonicalId = getCanonicalPageId(id, database)
-  //     console.log({ canonicalId })
-  //   }
-  // }
   return canonicalPageMap
 }
