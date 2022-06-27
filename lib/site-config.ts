@@ -3,6 +3,7 @@ export interface SiteConfig {
   domain: string
   author: string
   description?: string
+  language?: string
 }
 
 const siteConfig = (config: SiteConfig): SiteConfig => {
