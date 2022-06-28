@@ -1,8 +1,5 @@
 // import { Client } from "@notionhq/client"
-import { NotionAPI as unofficialApi } from 'notion-client'
-
-const unofficial = new unofficialApi()
-export default unofficial
+import notion from './notion-api'
 // import { getCanonicalPageId } from 'notion-utils'
 // import slugify from "slugify"
 // import { NotionCompatAPI } from 'notion-compat'
