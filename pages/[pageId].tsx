@@ -15,9 +15,7 @@ export const getStaticProps = async (context) => {
   const props = await resolveNotionPage(domain, rawPageId)
   console.log({ props })
   return {
-    props: {
-      recordMap
-    },
+    props,
     revalidate: 10
   }
 }
@@ -41,6 +39,6 @@ export async function getStaticPaths() {
   return staticPaths
 }
 
-export default function Page({ recordMap }: { recordMap: ExtendedRecordMap }) {
-  return <NotionPage recordMap={recordMap} rootPageId={rootNotionPageId} />
+export default function NotionDynamicPage(props) {
+  return <NotionPage {...props} />
 }
