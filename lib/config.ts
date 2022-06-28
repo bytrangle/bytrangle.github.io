@@ -17,6 +17,11 @@ export const domain: string = getSiteConfig('domain')
 export const description: string = getSiteConfig('description', 'A non-trivial blog built with Next.js and Notion')
 export const language: string = getSiteConfig('language', 'en')
 
+export const includeNotionIdInUrls: boolean = getSiteConfig(
+  'includeNotionIdInUrls',
+  !!isDev
+)
+
 export const site: Site = {
   domain,
   name,

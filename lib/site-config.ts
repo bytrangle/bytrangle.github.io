@@ -4,6 +4,8 @@ export interface SiteConfig {
   author: string
   description?: string
   language?: string
+
+  includeNotionIdInUrls?: boolean
 }
 
 const siteConfig = (config: SiteConfig): SiteConfig => {
