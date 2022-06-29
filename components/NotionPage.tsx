@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
@@ -13,11 +14,12 @@ const NotionPage: React.FC<types.PageProps> = ({
   error,
   pageId
 }) => {
+  const router = useRouter()
   const siteMapPageUrl = React.useMemo(() => {
     return mapPageUrl(site, recordMap)
   }, [site, recordMap])
-  if (!recordMap) {
-    return <div>Nothing</div>
+  if (router.isFallback) {
+    return <p>Loading...</p>
   }
   const title = getPageTitle(recordMap)
   console.log({ title })
