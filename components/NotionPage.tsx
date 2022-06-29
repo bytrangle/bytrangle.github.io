@@ -5,6 +5,7 @@ import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import * as types from 'lib/types'
+import mapPageUrl from 'lib/map-page-url'
 
 const NotionPage: React.FC<types.PageProps> = ({
   site,
@@ -12,12 +13,15 @@ const NotionPage: React.FC<types.PageProps> = ({
   error,
   pageId
 }) => {
-  // console.log({ recordMap })
+  const siteMapPageUrl = React.useMemo(() => {
+    return mapPageUrl(site, recordMap)
+  }, [site, recordMap])
   if (!recordMap) {
     return <div>Nothing</div>
   }
   const title = getPageTitle(recordMap)
   console.log({ title })
+
   return (
     <>
       <Head>
@@ -26,6 +30,7 @@ const NotionPage: React.FC<types.PageProps> = ({
       <NotionRenderer
         recordMap={recordMap}
         darkMode={false}
+        mapPageUrl={siteMapPageUrl}
         // rootPageId={rootPageId}
       />
     </>
