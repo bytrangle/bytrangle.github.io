@@ -7,9 +7,15 @@ import dynamic from 'next/dynamic'
 
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
+
+// utils
 import { getPageTitle } from 'notion-utils'
 import * as types from 'lib/types'
-import mapPageUrl from 'lib/map-page-url'
+import mapPageUrl, { getCanonicalPageUrl } from 'lib/map-page-url'
+import * as config from 'lib/config'
+
+// components
+import PageHead from './PageHead'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -79,11 +85,18 @@ const NotionPage: React.FC<types.PageProps> = ({
   const title = getPageTitle(recordMap)
   console.log({ title })
 
+  const canonicalPageUrl = !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
+
+  const socialDescription = config.description
   return (
     <>
-      <Head>
-        <meta name='description' content='React Notion X minimal demo' />
-      </Head>
+      <PageHead
+        pageId={pageId}
+        site={site}
+        title={title}
+        description={socialDescription}
+        url={canonicalPageUrl}
+      />
       <NotionRenderer
         components={components}
         recordMap={recordMap}
