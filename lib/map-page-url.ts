@@ -21,6 +21,14 @@ const getCanonicalPageId = (
   return canonical
 }
 
+export const getCanonicalPageUrl = 
+  (site: Site, recordMap: ExtendedRecordMap) =>
+  (pageId = '') => {
+    const pageUuid = parsePageId(pageId, { uuid: true })
+    return `https://${site.domain}/${getCanonicalPageId(pageUuid, recordMap, {
+      uuid
+    })}`
+  }
 const createUrl = (path: string) => {
   const url = [path].filter(Boolean).join('')
   return url
