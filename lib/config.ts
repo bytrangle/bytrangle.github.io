@@ -5,7 +5,7 @@
  * for optional depenencies.
  */
 
-import { getSiteConfig } from './get-config-value'
+import { getEnv, getSiteConfig } from './get-config-value'
 import { Site } from './types'
 
 export const environment = process.env.NODE_ENV || 'development'
@@ -21,6 +21,10 @@ export const includeNotionIdInUrls: boolean = getSiteConfig(
   'includeNotionIdInUrls',
   !!isDev
 )
+
+export const port = getEnv('PORT', '3000')
+
+export const host = isDev ? `http://localhost:${port}` : `https://${domain}`
 
 export const site: Site = {
   domain,
