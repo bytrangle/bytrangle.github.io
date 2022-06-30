@@ -5,6 +5,8 @@ export interface SiteConfig {
   description?: string
   language?: string
 
+  twitter?: string
+
   includeNotionIdInUrls?: boolean
 }
 
