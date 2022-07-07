@@ -2,7 +2,7 @@ import { parsePageId } from 'notion-utils'
 import { ExtendedRecordMap } from 'notion-types'
 import handlePageError from './handle-page-error'
 import { site } from './config'
-import notion from './notion-api'
+import { unofficialNotionClient as notion } from './notion-api'
 
 // This function should return an object with three properties:
 // - site: site-wide configurations like domain, site name and description

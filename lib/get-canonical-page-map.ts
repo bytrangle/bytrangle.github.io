@@ -1,5 +1,5 @@
 import { getCanonicalPageId } from 'notion-utils'
-import notion  from './notion-api'
+import { unofficialNotionClient as notion } from './notion-api'
 
 const databaseId = 'cc368b47772a4a1aa36e1f52c507d20d'
 
