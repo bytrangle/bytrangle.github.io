@@ -21,26 +21,49 @@ export default async function getBlogFeed(count = 3) {
       ]
     }
   })
+
   const posts = response["results"].slice(0, count)
+  const wpm = 200
   const blogFeed = await Promise.all(posts.map(async (page) => {
     const { id } = page
+    const blockChildrenResponse = await officialNotionClient.blocks.children.list({
+      block_id: id,
+    })
     const title = getDatabasePageTitle(page)
-    const richText = page["properties"]["Description"]["rich_text"]
-    console.log({ richText })
-    let descriptionText = ""
-    if (richText.length !== 0) {
-      descriptionText = richText.map(elem => elem["plain_text"]).join("")
+    console.log(`Page title: "${title}"`)
+    const description = page["properties"]["Description"]["rich_text"]
+    // console.log({ description })
+    let descriptionText = "", pageWordCount = 0, readingTime = 0
+    if (description.length !== 0) {
+      descriptionText = description.map(elem => elem["plain_text"]).join("")
     } else {
-      const response = await officialNotionClient.blocks.children.list({
-        block_id: id,
-        page_size: 1
-      })
-      const firstBlock = response.results[0]
+      const firstBlock = blockChildrenResponse.results[0]
       const firstBlockType = firstBlock["type"]
-      const richTextArray = firstBlock[firstBlockType]["rich_text"].map(element => element["plain_text"])
-      descriptionText = richTextArray.join("")
+      const firstBlockStringArray = firstBlock[firstBlockType]["rich_text"].map(element => element["plain_text"])
+      descriptionText = firstBlockStringArray.join("")
     }
-    return { id, title, description: descriptionText }
+    blockChildrenResponse.results.forEach(block => {
+      if ("type" in block){
+        const blockType = block["type"]
+        console.log('Block type: ', blockType)
+        const richText = block[blockType]["rich_text"]
+        // console.log(richText)
+        // Exclude non-text blocks or empty paragraph blocks
+        if (richText && richText.length) {
+          const blockTextArray = richText.map(text => text["plain_text"])
+          const blockString = blockTextArray.join("")
+          // console.log(blockString)
+          const blockWords = blockString.trim().split(/\s+/)
+          // console.log({ blockWords })
+          pageWordCount += blockWords.length
+        }
+      }
+    })
+    readingTime = Math.ceil(pageWordCount / wpm)
+    console.log('Reading time: ', readingTime)
+    console.log('Word count: ', pageWordCount)
+    console.log("----------")
+    return { id, title, description: descriptionText, readingTime }
   }))
   return blogFeed || []
 }
