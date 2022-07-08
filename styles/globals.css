@@ -1,7 +1,14 @@
+@font-face {
+  font-family: monocracyCutsAndClipsRegular;
+  src: url('/static/monocracy-cuts-and-clips-regular.ttf')
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.hand {
+  font-family: monocracyCutsAndClipsRegular;
+}
 /* html,
 body {
   padding: 0;

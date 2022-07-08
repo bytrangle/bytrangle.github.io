@@ -1,7 +1,14 @@
-.container {
-  padding: 0 2rem;
+.standfirst::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 }
-
+.icon {
+  max-width: 2rem;
+}
 .main {
   min-height: 100vh;
   padding: 4rem 0;
