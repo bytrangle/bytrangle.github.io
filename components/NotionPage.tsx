@@ -76,7 +76,8 @@ const NotionPage: React.FC<types.PageProps> = ({
     }),
     []
   )
-  const pageHeader = <h1 className='text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl'>{getPageTitle(recordMap)}</h1>
+  console.log({ recordMap })
+  const pageHeader = <h1 className='text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl'>{recordMap ?getPageTitle(recordMap) : ""}</h1>
   const siteMapPageUrl = React.useMemo(() => {
     return mapPageUrl(site, recordMap)
   }, [site, recordMap])
@@ -91,13 +92,6 @@ const NotionPage: React.FC<types.PageProps> = ({
   const socialDescription = config.description
   return (
     <>
-      <PageHead
-        pageId={pageId}
-        site={site}
-        title={title}
-        description={socialDescription}
-        url={canonicalPageUrl}
-      />
       <div className='notion-page-wrapper px-4 sm:px-6 md:px-8'>
         <div className='notion-page-content max-w-3xl mx-auto pb-28'>
           <article className='relative pt-10'>
@@ -116,6 +110,14 @@ const NotionPage: React.FC<types.PageProps> = ({
           </article>
         </div>
       </div>
+      <PageHead
+        pageId={pageId}
+        site={site}
+        title={title}
+        description={socialDescription}
+        url={canonicalPageUrl}
+      />
+      
     </>
   )
 }
