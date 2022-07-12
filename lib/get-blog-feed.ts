@@ -1,8 +1,8 @@
-import { officialNotionClient } from './notion-api'
+import notion from './notion-api'
 import getDatabasePageTitle from './get-database-page-title'
 
 export default async function getBlogFeed(count = 3) {
-  const response = await officialNotionClient.databases.query({
+  const response = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID,
     filter: {
       and: [
