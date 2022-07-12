@@ -26,7 +26,17 @@ export default async function getBlogFeed(count = 3) {
   const wpm = 200
   const blogFeed = await Promise.all(posts.map(async (page) => {
     const { id } = page
-    const blockChildrenResponse = await officialNotionClient.blocks.children.list({
+    let slug = ''
+    if ("url" in page) {
+      const { url } = page
+      const found = url.match(/(?<=https:\/\/www.notion.so\/)(.+)(?=-)/g)
+      // console.log(found)
+      if (found.length) {
+        slug = found[0].toLowerCase()
+      }
+    }
+    console.log({ slug })
+    const blockChildrenResponse = await notion.blocks.children.list({
       block_id: id,
     })
     const title = getDatabasePageTitle(page)
