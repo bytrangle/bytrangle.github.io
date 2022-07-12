@@ -55,7 +55,7 @@ export default async function getBlogFeed(count = 3) {
     blockChildrenResponse.results.forEach(block => {
       if ("type" in block){
         const blockType = block["type"]
-        console.log('Block type: ', blockType)
+        // console.log('Block type: ', blockType)
         const richText = block[blockType]["rich_text"]
         // console.log(richText)
         // Exclude non-text blocks or empty paragraph blocks
@@ -70,10 +70,10 @@ export default async function getBlogFeed(count = 3) {
       }
     })
     readingTime = Math.ceil(pageWordCount / wpm)
-    console.log('Reading time: ', readingTime)
-    console.log('Word count: ', pageWordCount)
-    console.log("----------")
-    return { id, title, description: descriptionText, readingTime }
+    // console.log('Reading time: ', readingTime)
+    // console.log('Word count: ', pageWordCount)
+    // console.log("----------")
+    return { id, title, slug, description: descriptionText, readingTime }
   }))
   return blogFeed || []
 }
