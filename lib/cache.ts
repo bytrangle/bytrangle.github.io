@@ -2,7 +2,7 @@ import path from 'path'
 import { promises as fs } from 'fs'
 
 const cache = {
-  getWholeFileContent: async (fileName) => {
+  readFile: async (fileName) => {
     try {
       const data = await fs.readFile(path.join(process.cwd(), fileName))
       return JSON.parse(data)
@@ -26,7 +26,7 @@ const cache = {
     console.log('saving database to cache')
     return await fs.writeFile(
       path.join(process.cwd(), fileName),
-      JSON.stringify(content)
+      content
     )
   },
   testRead: async (key, fileName) => {
