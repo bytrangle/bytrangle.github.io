@@ -4,13 +4,25 @@ import notion from './notion-api'
 // import slugify from "slugify"
 // import { NotionCompatAPI } from 'notion-compat'
 
-// const databaseId = process.env.NOTION_DATABASE_ID
-
-// const notion = new Client({
-//   auth: process.env.NOTION_SECRET
-// })
-
-// export const unofficialClient = new unofficialApi()
+export const getReadyToPublishPosts = async (databaseId: string) => {
+  const response = await notion.databases.query({
+    database_id: databaseId,
+    filter: {
+      "and": [
+        {
+          "property": "Publish Status",
+          "select": {
+            "equals": "ready"
+          }
+        }
+      ]
+    }
+  })
+  if (response && response.results) {
+    return response.results
+  }
+  return []
+}
 
 // const compatNotion = new NotionCompatAPI(notion)
 
