@@ -1,27 +1,39 @@
 import { getCanonicalPageId } from 'notion-utils'
-import { unofficialNotionClient as notion } from './notion-api'
-
-const databaseId = 'cc368b47772a4a1aa36e1f52c507d20d'
+import { getReadyToPublishPosts } from "./notion-helpers"
+import slugifyNotionUrl from './slugify-notion-url'
+import getDatabasePageTitle from './get-database-page-title'
+import cache from './cache'
 
 export default async function getCanonicalPageMap() {
-  const database = await notion.getPage(databaseId)
-  const { block } = database
-  const canonicalPageMap = Object.keys(block).reduce(
-    (map, pageId: string) => {
-      const props = block[pageId]
-      if (props.value && props.value.type === 'page' && props.value.parent_table === 'collection') {
-        // console.log('Page ID: ', pageId)
-        const canonicalId = getCanonicalPageId(pageId, database)
-        // console.log(props.value)
-        return {
-          ...map,
-          [canonicalId]: props.value
+  const res = await getReadyToPublishPosts(process.env.NOTION_DATABASE_ID)
+  const map = res.reduce((result, currentPage) => {
+    if ("properties" in currentPage && "url" in currentPage) {
+      const { id, url } = currentPage
+      const title = getDatabasePageTitle(currentPage)
+      const slug = title.toLowerCase().split(' ').join('-')
+      const split = url.split('/')
+      const notionSlug = split[split.length - 1].toLowerCase()
+      if (slug && slug.length > 0) {
+        result[slug] = {
+          id,
+          title,
+          properties: currentPage.properties, 
+          url, 
+          slug: {
+            dev: notionSlug,
+            production: slug
+          } 
         }
       }
-      return map
-    },
-    {}
-  )
-  // console.log({ canonicalPageMap })
-  return canonicalPageMap
+    }
+    return result
+  }, {})
+  console.log(map)
+  const cachedDb = await cache.readFile('blog-posts.json')
+  if (!cachedDb) {
+    // Add newlines and a couple of indentations to the serialized JSON
+    const data = JSON.stringify(map, null, 2)
+    await cache.set(data, 'blog-posts.json')
+  }
+  return map
 }
