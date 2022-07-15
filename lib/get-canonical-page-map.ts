@@ -8,7 +8,7 @@ export default async function getCanonicalPageMap() {
   const res = await getReadyToPublishPosts(process.env.NOTION_DATABASE_ID)
   const map = res.reduce((result, currentPage) => {
     if ("properties" in currentPage && "url" in currentPage) {
-      const { id, url } = currentPage
+      const { id, url, last_edited_time } = currentPage
       const title = getDatabasePageTitle(currentPage)
       const slug = title.toLowerCase().split(' ').join('-')
       const split = url.split('/')
@@ -16,6 +16,7 @@ export default async function getCanonicalPageMap() {
       if (slug && slug.length > 0) {
         result[slug] = {
           id,
+          last_edited_time,
           title,
           properties: currentPage.properties, 
           url, 
@@ -28,12 +29,27 @@ export default async function getCanonicalPageMap() {
     }
     return result
   }, {})
-  console.log(map)
+  // console.log(map)
   const cachedDb = await cache.readFile('blog-posts.json')
   if (!cachedDb) {
     // Add newlines and a couple of indentations to the serialized JSON
     const data = JSON.stringify(map, null, 2)
     await cache.set(data, 'blog-posts.json')
+  } else {
+    const newMap = Object.keys(map).reduce((previousMap, currentSlug) => {
+      if (!cache[currentSlug] || (cache[currentSlug] && cache[currentSlug]['last_edited_time'] !== map[currentSlug]['last_edited_time'])) {
+        return {
+          ...previousMap,
+          [currentSlug]: map[currentSlug]
+        }
+      }
+      return previousMap
+    }, {})
+    console.log({ newMap })
+    if (Object.keys(newMap).length > 0) {
+      const newData = JSON.stringify(newMap, null, 2)
+      await cache.set(newData, 'blog-post.json')
+    }
   }
   return map
 }
