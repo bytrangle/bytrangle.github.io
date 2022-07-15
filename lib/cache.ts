@@ -22,7 +22,7 @@ const cache = {
       return null
     }
   },
-  set: async (content, fileName) => {
+  set: async (content: string, fileName: string) => {
     console.log('saving database to cache')
     return await fs.writeFile(
       path.join(process.cwd(), fileName),
