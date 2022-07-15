@@ -1,6 +1,5 @@
-import { getCanonicalPageId } from 'notion-utils'
 import { getReadyToPublishPosts } from "./notion-helpers"
-import slugifyNotionUrl from './slugify-notion-url'
+import slugifyNotionUrl from './parse-slug-from-notion-url'
 import getDatabasePageTitle from './get-database-page-title'
 import cache from './cache'
 
@@ -10,9 +9,9 @@ export default async function getCanonicalPageMap() {
     if ("properties" in currentPage && "url" in currentPage) {
       const { id, url, last_edited_time } = currentPage
       const title = getDatabasePageTitle(currentPage)
-      const slug = title.toLowerCase().split(' ').join('-')
       const split = url.split('/')
       const notionSlug = split[split.length - 1].toLowerCase()
+      const slug = slugifyNotionUrl(url)
       if (slug && slug.length > 0) {
         result[slug] = {
           id,
