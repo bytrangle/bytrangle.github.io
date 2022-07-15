@@ -5,7 +5,7 @@ const cache = {
   readFile: async (fileName) => {
     try {
       const data = await fs.readFile(path.join(process.cwd(), fileName))
-      return JSON.parse(data)
+      return JSON.parse(data.toString())
     }
     catch {
       return null
