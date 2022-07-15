@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { ExtendedRecordMap } from 'notion-types'
-import { unofficialNotionClient as notion } from 'lib/notion-api'
 import { isDev, domain } from '../lib/config'
 import getCanonicalPageMap from 'lib/get-canonical-page-map'
 import resolveNotionPage from 'lib/resolve-notion-page'
