@@ -24,6 +24,16 @@ export const getReadyToPublishPosts = async (databaseId: string) => {
   return []
 }
 
+export const getBlockChildren = async (blockId: string) => {
+  const response = await notion.blocks.children.list({
+    block_id: blockId
+  })
+  if (response && response.results) {
+    return response.results
+  }
+  return []
+}
+
 // const compatNotion = new NotionCompatAPI(notion)
 
 // export const getDatabase = async (databaseId) => {
