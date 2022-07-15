@@ -11,10 +11,10 @@ const cache = {
       return null
     }
   },
-  getContentByKey: async (key, fileName) => {
+  getContentByKey: async (key: string, fileName: string) => {
     try {
       const data = await fs.readFile(path.join(process.cwd(), fileName))
-      const posts = JSON.parse(data)
+      const posts = JSON.parse(data.toString())
       console.log(posts.constructor.name)
       return posts[key]
     }
