@@ -34,22 +34,6 @@ export async function getStaticPaths() {
       }
     }
   })
-  // console.log(paths)
-  // const staticPaths = {
-  //   paths: Object.keys(canonicalPageMap).map((pageId) => ({
-  //     params: {
-  //       pageId: canonicalPageMap[pageId]["notion_slug"]
-  //     }
-  //   })),
-  //   fallback: true
-  // }
-  // console.log(staticPaths.paths)
-  // if (isDev) {
-  //   return {
-  //     paths: [],
-  //     fallback: true
-  //   }
-  // }
   return {
     paths,
     fallback: true
