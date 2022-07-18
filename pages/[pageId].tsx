@@ -14,7 +14,7 @@ export const getStaticProps = async (context) => {
   }
   console.log({ path })
   const pageProps = await cache.getContentByKey(path, 'blog-posts.json')
-  console.log({ pageProps })
+  // console.log({ pageProps })
   let blockChildren = []
   if (pageProps['id']) {
     const { id } = pageProps
@@ -22,7 +22,8 @@ export const getStaticProps = async (context) => {
   }
   return {
     props: {
-      blockChildren
+      blockChildren,
+      pageProps
     },
     revalidate: 10
   }
