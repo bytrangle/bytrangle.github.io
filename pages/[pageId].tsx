@@ -6,8 +6,6 @@ import getCanonicalPageMap from 'lib/get-canonical-page-map'
 import { getBlockChildren } from 'lib/notion-helpers'
 import NotionPage from '../components/NotionPage'
 
-const rootNotionPageId = process.env.NOTION_DATABASE_ID
-
 export const getStaticProps = async (context) => {
   let path = (context.params.pageId as string)
   if (isDev) {
