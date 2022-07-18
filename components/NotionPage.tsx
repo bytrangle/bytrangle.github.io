@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
 import { NotionRenderer } from 'react-notion-x'
+import { Render } from '@9gustin/react-notion-render'
 import { ExtendedRecordMap } from 'notion-types'
 
 // utils
@@ -60,66 +61,81 @@ const Code = dynamic(() =>
   })
 )
 
-const NotionPage: React.FC<types.PageProps> = ({
-  site,
-  recordMap,
-  error,
-  pageId
+const NotionPage = ({
+  blockChildren
 }) => {
-  const router = useRouter()
-
-  const components = React.useMemo(
-    () => ({
-      nextImage: Image,
-      nextLink: Link,
-      Code
-    }),
-    []
-  )
-  console.log({ recordMap })
-  const pageHeader = <h1 className='text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl'>{recordMap ?getPageTitle(recordMap) : ""}</h1>
-  const siteMapPageUrl = React.useMemo(() => {
-    return mapPageUrl(site, recordMap)
-  }, [site, recordMap])
-  if (router.isFallback) {
-    return <p>Loading...</p>
-  }
-  const title = getPageTitle(recordMap)
-  console.log({ title })
-
-  const canonicalPageUrl = !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
-
-  const socialDescription = config.description
   return (
-    <>
-      <div className='notion-page-wrapper px-4 sm:px-6 md:px-8'>
-        <div className='notion-page-content max-w-3xl mx-auto pb-28'>
-          <article className='relative pt-10'>
-          <NotionRenderer
-            className='class-name'
-            bodyClassName='body-class-name'
-            components={components}
-            // header={header}
-            recordMap={recordMap}
-            darkMode={false}
-            mapPageUrl={siteMapPageUrl}
-            // fullPage={true}
-            pageHeader={pageHeader}
-            // rootPageId={rootPageId}
-          />
-          </article>
-        </div>
+    <div className='notion-page-wrapper px-4 sm:px-6 md:px-8'>
+      <div className='notion-page-content max-w-3xl mx-auto pb-28'>
+        <article className='relative pt-10 prose prose-slate dark:prose-dark'>
+          <Render blocks={blockChildren} />
+        </article>
       </div>
-      <PageHead
-        pageId={pageId}
-        site={site}
-        title={title}
-        description={socialDescription}
-        url={canonicalPageUrl}
-      />
-      
-    </>
+    </div>
   )
 }
+// const NotionPage: React.FC<types.PageProps> = ({
+//   site,
+//   recordMap,
+//   error,
+//   pageId
+// }) => {
+//   const router = useRouter()
+
+//   const components = React.useMemo(
+//     () => ({
+//       nextImage: Image,
+//       nextLink: Link,
+//       Code
+//     }),
+//     []
+//   )
+//   // console.log({ recordMap })
+//   const pageHeader = <h1 className='text-2xl font-extrabold tracking-tight text-slate-900 dark:text-slate-200 md:text-3xl'>{recordMap ?getPageTitle(recordMap) : ""}</h1>
+//   const siteMapPageUrl = React.useMemo(() => {
+//     return mapPageUrl(site, recordMap)
+//   }, [site, recordMap])
+//   if (router.isFallback) {
+//     return <p>Loading...</p>
+//   }
+//   const title = getPageTitle(recordMap)
+//   // console.log({ title })
+
+//   const canonicalPageUrl = !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
+
+//   const socialDescription = config.description
+//   return (
+//     <>
+//       <div className='notion-page-wrapper px-4 sm:px-6 md:px-8'>
+//         <div className='notion-page-content max-w-3xl mx-auto pb-28'>
+//           <article className='relative pt-10'>
+//             <Render />
+//           {/* <NotionRenderer
+//             className='class-name'
+//             bodyClassName='body-class-name'
+//             components={components}
+//             // header={header}
+//             recordMap={recordMap}
+//             darkMode={false}
+//             mapPageUrl={siteMapPageUrl}
+//             // fullPage={true}
+//             pageHeader={pageHeader}
+//             // rootPageId={rootPageId}
+//           /> */}
+//           </article>
+//         </div>
+//       </div>
+//       {/* <PageHead
+//         pageId={pageId}
+//         site={site}
+//         title={title}
+//         description={socialDescription}
+//         url={canonicalPageUrl}
+//       /> */}
+      
+//     </>
+//   )
+// }
+
 
 export default NotionPage

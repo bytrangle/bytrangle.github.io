@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@9gustin/react-notion-render": "^3.9.0",
     "@notionhq/client": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
