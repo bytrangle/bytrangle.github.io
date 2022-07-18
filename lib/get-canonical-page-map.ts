@@ -47,7 +47,7 @@ export default async function getCanonicalPageMap() {
     console.log({ newMap })
     if (Object.keys(newMap).length > 0) {
       const newData = JSON.stringify(newMap, null, 2)
-      await cache.set(newData, 'blog-post.json')
+      await cache.set(newData, 'blog-posts.json')
     }
   }
   return map
