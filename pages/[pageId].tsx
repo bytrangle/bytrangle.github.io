@@ -1,20 +1,30 @@
 import * as React from 'react'
 import { isDev, domain } from '../lib/config'
+import cache from 'lib/cache'
+import parseSlug from 'lib/parse-slug-from-notion-url'
 import getCanonicalPageMap from 'lib/get-canonical-page-map'
-import resolveNotionPage from 'lib/resolve-notion-page'
+import { getBlockChildren } from 'lib/notion-helpers'
 import NotionPage from '../components/NotionPage'
 
 const rootNotionPageId = process.env.NOTION_DATABASE_ID
 
 export const getStaticProps = async (context) => {
-  console.log({ context })
-  const slug = (context.params.pageId as string)
-  // console.log({ slug })
-  // const recordMap = await notion.getPage(rawPageId)
-  // const props = await resolveNotionPage(domain, rawPageId)
-  // console.log({ props })
+  let path = (context.params.pageId as string)
+  if (isDev) {
+    path = parseSlug(path)
+  }
+  console.log({ path })
+  const pageProps = await cache.getContentByKey(path, 'blog-posts.json')
+  console.log({ pageProps })
+  let blocks = []
+  if (pageProps['id']) {
+    const { id } = pageProps
+    blocks = await getBlockChildren(id)
+  }
   return {
-    props: {},
+    props: {
+      blocks
+    },
     revalidate: 10
   }
 }
