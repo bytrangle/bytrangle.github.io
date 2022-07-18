@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Render } from '@9gustin/react-notion-render'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { isDev, domain } from '../lib/config'
 import cache from 'lib/cache'
 import parseSlug from 'lib/parse-slug-from-notion-url'
@@ -7,13 +7,27 @@ import getCanonicalPageMap from 'lib/get-canonical-page-map'
 import { getBlockChildren } from 'lib/notion-helpers'
 import NotionPage from '../components/NotionPage'
 
+type Slug = {
+  dev: string,
+  production: string
+}
+
+type PageProps = {
+  id: string,
+  last_edited_time: string,
+  title: string,
+  url: string,
+  properties: any,
+  slug: Slug
+}
+
 export const getStaticProps = async (context) => {
   let path = (context.params.pageId as string)
   if (isDev) {
     path = parseSlug(path)
   }
   console.log({ path })
-  const pageProps = await cache.getContentByKey(path, 'blog-posts.json')
+  const pageProps: PageProps = await cache.getContentByKey(path, 'blog-posts.json')
   // console.log({ pageProps })
   let blockChildren = []
   if (pageProps['id']) {
@@ -48,7 +62,7 @@ export async function getStaticPaths() {
   }
 }
 
-export default function NotionDynamicPage(props) {
+export default function NotionDynamicPage(props: InferGetStaticPropsType<typeof getStaticProps>) {
   console.log('👼 Block children')
   console.log(props)
   return <NotionPage {...props} />
