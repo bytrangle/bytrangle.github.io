@@ -6,6 +6,9 @@
   left: 0;
   top: 0;
 }
+.handIcon {
+  max-width: 4rem;
+}
 .icon {
   max-width: 2rem;
 }
