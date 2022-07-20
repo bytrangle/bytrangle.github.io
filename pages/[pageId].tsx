@@ -22,11 +22,7 @@ type PageProps = {
 }
 
 export const getStaticProps = async (context) => {
-  let path = (context.params.pageId as string)
-  if (isDev) {
-    path = parseSlug(path)
-  }
-  console.log({ path })
+  const path = (context.params.pageId as string)
   const pageProps: PageProps = await cache.getContentByKey(path, 'blog-posts.json')
   // console.log({ pageProps })
   let blockChildren = []
@@ -45,14 +41,9 @@ export const getStaticProps = async (context) => {
 export async function getStaticPaths() {
   const canonicalPageMap= await getCanonicalPageMap()
   const paths = Object.keys(canonicalPageMap).map((slug) => {
-    let path = slug
-    if (isDev) {
-      path = canonicalPageMap[slug]["slug"]["dev"]
-      console.log({ path })
-    }
     return {
       params: {
-        pageId: path
+        pageId: slug
       }
     }
   })
