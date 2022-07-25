@@ -6,6 +6,9 @@
   left: 0;
   top: 0;
 }
+.blogPostCard:hover .timeToRead {
+  width: 38%;
+}
 .handIcon {
   max-width: 4rem;
 }
