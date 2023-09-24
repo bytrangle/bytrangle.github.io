@@ -1,5 +1,13 @@
 {
   "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": ".svg",
+      "options": {
+        "parser": "html"
+      }
+    }
+  ],
   "semi": true,
   "tabWidth": 2,
   "printWidth": 80,
