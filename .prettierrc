@@ -2,12 +2,19 @@
   "arrowParens": "avoid",
   "overrides": [
     {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    },
+    {
       "files": "**/*.svg",
       "options": {
         "parser": "html"
       }
     }
   ],
+  "plugins": ["prettier-plugin-astro"],
   "semi": true,
   "tabWidth": 2,
   "printWidth": 80,
