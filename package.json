@@ -1,5 +1,5 @@
 {
-  "name": "better-bar",
+  "name": "developer-notes",
   "version": "2.3.0",
   "scripts": {
     "dev": "astro check --watch & astro dev",
