@@ -14,10 +14,14 @@ export interface Props {
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-  const postResult = posts.map(post => ({
-    params: { slug: slugify(post.data) },
-    props: { post },
-  }));
+  const postResult = posts.map(post => {
+    // Astro generates slug property based on slugified file name
+    console.log(post.slug);
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
 
   const pagePaths = getPageNumbers(posts.length).map(pageNum => ({
     params: { slug: String(pageNum) },
