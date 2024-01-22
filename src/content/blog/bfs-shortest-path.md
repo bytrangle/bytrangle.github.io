@@ -2,7 +2,6 @@
 title: How To Find Shortest Path Between Two Vertices Using BFS
 author: Trang Le
 pubDatetime: 2024-01-22T09:27:19Z
-# postSlug: maximum-number-of-paths-between-source-and-target-vertex-on-directed-acyclic-graph
 featured: false
 draft: false
 tags:
