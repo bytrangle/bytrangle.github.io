@@ -16,9 +16,9 @@ description: "How do you deduce that the maximum number of paths between the sta
 
 One of the most common problems in graph is finding all paths from a source vertex to a target vertex on a directed acyclic graph (DAG) using DFS approach.
 
-This problem is available on the Graph section of Leetcode. According to them, there are at maxmium 2^(N-1) -1 paths **between the starting and ending nodes**.
+This problem is available on the Graph section of [Leetcode](https://leetcode.com/problems/all-paths-from-source-to-target/editorial/). To calculate the time complexity of the solution, you need to know the maximum number of possible paths **between the starting and ending nodes**, because that would be the worst case.According to Leetcode, for a graph with N nodes, there are at maxmium 2^(N-1) -1 paths **between the starting and ending nodes**.
 
-Why 2^(N-1) - 1, you may ask? Indeed, this is the number one question in the discussion section under this problem. And I found Leetcode's explanation for arriving at this number was rather hasty and confusing, so I set out to find proof for this number.
+Why 2^(N-1) - 1, you may ask? This is where I got tripped up. It is also the number one question in the discussion section under this problem. And I found Leetcode's explanation for arriving at this number rather hasty and confusing, so I set out to find proof for this number.
 
 ## Maximum number of paths from start to end node
 
