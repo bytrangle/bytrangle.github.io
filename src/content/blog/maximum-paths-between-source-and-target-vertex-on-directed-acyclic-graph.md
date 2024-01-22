@@ -2,7 +2,6 @@
 title: Maximum number of paths between source and target vertex on directed acyclic graph
 author: Trang Le
 pubDatetime: 2024-01-09T10:27:52Z
-# postSlug: maximum-number-of-paths-between-source-and-target-vertex-on-directed-acyclic-graph
 featured: true
 draft: false
 tags:
