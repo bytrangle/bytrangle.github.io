@@ -143,4 +143,4 @@ shortestPathUsingDp(graph, 4, 0);
 
 Your final table should look like this:
 
-![](../../assets/dynamic-programming-to-find-shortest-path_using-at-most-zero-to-three-edges.png.png)
+![table for using dynamic programming to find shortest path using from zero to three edges](../../assets/dynamic-programming-to-find-shortest-path_using-at-most-zero-to-three-edges.png)
