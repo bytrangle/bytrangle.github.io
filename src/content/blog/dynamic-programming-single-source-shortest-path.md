@@ -3,6 +3,7 @@ title: Using Dynamic Programming for Solving Single Source Shortest Path
 pubDatetime: 2024-02-21T10:33:59Z
 featured: false
 draft: false
+description: "A probably overkill approach to find the single-source shortest path using dynamic programming"
 tags:
   - graph
   - single source shortest path
