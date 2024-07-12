@@ -91,10 +91,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       <ul>
         {
           sortedPostsWithoutFeatured.map(
-            ({ data }, index) =>
+            ({ data, slug }, index) =>
               index < 4 && (
                 <Card
-                  href={`/posts/${slugify(data)}`}
+                  href={`/posts/${slug}`}
                   frontmatter={data}
                   secHeading={false}
                 />
