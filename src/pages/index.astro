@@ -6,6 +6,7 @@ import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
+import ArticleCard from "@components/ArticleCard.astro";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import slugify from "@utils/slugify";
@@ -14,9 +15,9 @@ import { SOCIALS } from "@config";
 const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
-const sortedPostsWithoutFeatured = sortedPosts.filter(
-  ({ data }) => !data.featured
-);
+const sortedPostsWithoutFeatured = sortedPosts
+  .filter(({ data }) => !data.featured)
+  .slice(0, 4);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
@@ -73,10 +74,9 @@ const socialCount = SOCIALS.filter(social => social.active).length;
             <h2>Featured</h2>
             <ul>
               {featuredPosts.map(({ data }) => (
-                <Card
+                <ArticleCard
                   href={`/posts/${slugify(data)}`}
                   frontmatter={data}
-                  secHeading={false}
                 />
               ))}
             </ul>
@@ -90,16 +90,9 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       <h2>Recent Posts</h2>
       <ul>
         {
-          sortedPostsWithoutFeatured.map(
-            ({ data, slug }, index) =>
-              index < 4 && (
-                <Card
-                  href={`/posts/${slug}`}
-                  frontmatter={data}
-                  secHeading={false}
-                />
-              )
-          )
+          sortedPostsWithoutFeatured.map(({ data, slug }) => (
+            <ArticleCard href={`/posts/${slug}`} frontmatter={data} />
+          ))
         }
       </ul>
       <div class="all-posts-btn-wrapper">
