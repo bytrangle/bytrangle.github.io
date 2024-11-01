@@ -1,7 +1,7 @@
 ---
 title: Fibonacci Q-Matrix for Dummies
 pubDatetime: 2024-07-05T09:17:04Z
-featured: false
+featured: true
 draft: false
 description: "Once you understand this concept, proving the Fibonacci formula will be elementary"
 tags:
